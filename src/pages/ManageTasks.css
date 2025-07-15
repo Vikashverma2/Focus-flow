@@ -1,0 +1,154 @@
+.manage-tasks-container {
+  min-height: 100vh;
+  background-color: #f9fafb;
+}
+
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.tasks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.tasks-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.add-btn {
+  display: flex;
+  align-items: center;
+}
+
+.tabs-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+}
+
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.tasks-group {
+  margin-bottom: 1rem;
+}
+
+.group-title {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.tasks-group-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.task-card {
+  transition: box-shadow 0.2s ease;
+}
+
+.task-card:hover {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+.task-card-content {
+  padding: 1rem;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-icon-container {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.task-info {
+  flex-grow: 1;
+  margin-left: 0.5rem;
+}
+
+.task-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.task-desc {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.task-badge {
+  font-size: 0.7rem;
+  text-transform: capitalize;
+}
+
+.task-time-progress {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  margin: 0.5rem 0;
+}
+
+.task-progress-bar {
+  width: 100%;
+  height: 4px;
+  background-color: #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.task-progress-fill {
+  height: 100%;
+}
+
+.calendar-view {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .calendar-view {
+    grid-template-columns: 1fr 2fr;
+  }
+}
+
+.no-tasks-message {
+  text-align: center;
+  padding: 2rem 0;
+  color: #666;
+}
+
+.icon-large {
+  width: 48px;
+  height: 48px;
+  opacity: 0.4;
+  margin: 0 auto 1rem;
+}

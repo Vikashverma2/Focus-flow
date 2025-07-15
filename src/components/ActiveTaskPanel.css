@@ -1,0 +1,259 @@
+/* ===== Card layout ===== */
+
+.normal-card {
+  background: linear-gradient(to bottom right, #ffffff, #f0f0f0);
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  height: 100%;
+}
+
+.fullscreen-card {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: #fff;
+  border: none;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== Header ===== */
+
+.header {
+  text-align: center;
+  padding-bottom: 16px;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-title {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.header-title.large {
+  font-size: 32px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* ===== Content & session title ===== */
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 0;
+}
+
+.countdown-container {
+  width: 100%;
+  max-width: 400px;
+}
+
+.session-title {
+  text-align: center;
+  margin-top: 16px;
+}
+
+.session-text {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.session-text.large {
+  font-size: 28px;
+}
+
+/* ===== Controls (buttons) ===== */
+
+.controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.start-btn {
+  background: #007bff;
+  color: #fff;
+}
+
+.pause-btn {
+  background: #6c757d;
+  color: #fff;
+}
+
+.stop-btn {
+  background: #ffffff;
+  border: 1px solid #6c757d;
+  color: #6c757d;
+}
+
+.complete-btn {
+  background: #28a745;
+  color: #fff;
+}
+
+/* ===== Completed state ===== */
+
+.completed-card {
+  background: linear-gradient(to bottom right, #d4edda, #c3e6cb);
+  text-align: center;
+  padding: 32px;
+  border: none;
+}
+
+.completed-content {
+  text-align: center;
+}
+
+.completed-icon {
+  width: 96px;
+  height: 96px;
+  color: #155724;
+  margin: 0 auto 16px;
+}
+
+.completed-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #155724;
+}
+
+.completed-text {
+  color: #155724;
+  margin-bottom: 16px;
+}
+
+.completed-button {
+  background: #155724;
+  color: #fff;
+}
+
+/* ===== Circular progress style ===== */
+
+.circular-wrapper {
+  position: relative;
+}
+
+.circular-svg {
+  transform: rotate(-90deg);
+}
+
+.circular-track {
+  color: #ccc;
+  opacity: 0.3;
+}
+
+.circular-progress {
+  color: #007bff;
+  transition: all 1s ease-in-out;
+}
+
+.circular-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.circular-time {
+  font-size: 28px;
+  font-weight: bold;
+  color: #007bff;
+}
+
+.circular-text {
+  font-size: 14px;
+  color: #666;
+}
+
+/* ===== Countdown styles ===== */
+
+.circle-style,
+.minimal-style,
+.neon-style,
+.digital-style {
+  text-align: center;
+}
+
+.circle-total {
+  font-size: 14px;
+  color: #666;
+  margin-top: 8px;
+}
+
+.minimal-time {
+  font-size: 64px;
+  font-weight: 300;
+  color: #007bff;
+}
+
+.minimal-progress-wrapper {
+  margin: 16px 0;
+}
+
+.minimal-text {
+  font-size: 14px;
+  color: #666;
+}
+
+.neon-wrapper {
+  position: relative;
+}
+
+.neon-time {
+  font-size: 64px;
+  font-weight: bold;
+  color: #007bff;
+}
+
+.neon-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.3;
+  filter: blur(4px);
+}
+
+.neon-bar {
+  width: 256px;
+  height: 8px;
+  background: #ddd;
+  margin: 16px auto;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.neon-fill {
+  height: 100%;
+  background: linear-gradient(to right, #007bff, #66b2ff);
+  transition: width 1s ease-in-out;
+}
+
+.neon-text {
+  font-size: 14px;
+  color: #666;
+}
+
+.digital-time {
+  font-size: 48px;
+  font-family: monospace;
+  font-weight: bold;
+  color: #007bff;
+}
+
+.digital-total {
+  font-size: 14px;
+  color: #666;
+}
