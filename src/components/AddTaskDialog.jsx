@@ -113,12 +113,18 @@ export const AddTaskDialog = ({
           </DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-6"
+          style={{
+            gap: "10px",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
           {/* Title */}
           <div className="space-y-2">
-            <Label htmlFor="title" className="text-sm font-medium">
-              Title *
-            </Label>
+            <Label htmlFor="title">Title *</Label>
             <Input
               disabled={!editable}
               id="title"
@@ -150,11 +156,19 @@ export const AddTaskDialog = ({
           </div>
 
           {/* Time Selection */}
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
+          <div
+            style={{
+              display: "flex",
+              gap: "10px",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <div className="space-y-2" style={{ flex: 2 }}>
               <Label
                 htmlFor="startTime"
-                className="text-sm font-medium flex items-center"
+                className="flex "
+                style={{ gap: "5px" }}
               >
                 <Clock className="w-4 h-4 mr-1" />
                 Start Time *
@@ -171,9 +185,9 @@ export const AddTaskDialog = ({
                 className="bg-background border-input"
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="endTime" className="text-sm font-medium">
-                End Time *
+            <div className="space-y-2" style={{ flex: 2 }}>
+              <Label htmlFor="endTime" className="flex" style={{ gap: "5px" }}>
+                <Clock className="w-4 h-4 mr-1" /> End Time *
               </Label>
               <Input
                 disabled={!editable}
@@ -192,7 +206,7 @@ export const AddTaskDialog = ({
           {/* Duration Display */}
           {calculateDuration() && (
             <div className="bg-primary/10 border border-primary/20 rounded-lg p-3">
-              <p className="text-sm text-primary font-medium">
+              <p className="text-sm font-medium">
                 Total Duration: {calculateDuration()}
               </p>
             </div>
@@ -200,7 +214,10 @@ export const AddTaskDialog = ({
 
           {/* Repeat Options */}
           <div className="space-y-2">
-            <Label className="text-sm font-medium flex items-center">
+            <Label
+              className="text-sm font-medium flex items-center"
+              style={{ gap: "5px" }}
+            >
               <Repeat className="w-4 h-4 mr-1" />
               Repeat Duration
             </Label>
@@ -226,11 +243,24 @@ export const AddTaskDialog = ({
 
           {/* Color Selection */}
           <div className="space-y-3">
-            <Label className="text-sm font-medium flex items-center">
+            <Label
+              className="text-sm font-medium flex items-center"
+              style={{ gap: "5px" }}
+            >
               <Palette className="w-4 h-4 mr-1" />
               Color Theme
             </Label>
-            <div className="flex flex-wrap gap-2">
+            <div
+              className=""
+              style={{
+                marginTop: "5px",
+                gap: "5px",
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "flex-start",
+                alignItems: "center",
+              }}
+            >
               {colors.map((color) => (
                 <button
                   key={color.value}
@@ -252,11 +282,19 @@ export const AddTaskDialog = ({
 
           {/* Icon Selection */}
           <div className="space-y-3">
-            <Label className="text-sm font-medium flex items-center">
+            <Label
+              className="text-sm font-medium flex items-center"
+              style={{ gap: "5px" }}
+            >
               <Smile className="w-4 h-4 mr-1" />
               Icon
             </Label>
-            <div className="flex flex-wrap gap-2">
+            <div
+              className="flex flex-wrap gap-2"
+              style={{
+                marginTop: "5px",
+              }}
+            >
               {icons.map((icon) => (
                 <button
                   key={icon}
@@ -275,26 +313,21 @@ export const AddTaskDialog = ({
           </div>
 
           {/* Action Buttons */}
-          <div className="flex justify-end space-x-3 pt-4">
+          <div
+            style={{ gap: "20px", display: "flex", justifyContent: "flex-end" }}
+          >
             <Button variant="outline" onClick={() => onOpenChange(false)}>
               Close
             </Button>
 
             {!editable && !isAddMode && (
-              <Button
-                type="button"
-                onClick={() => setEditable(true)}
-                className="bg-primary text-primary-foreground"
-              >
+              <Button type="button" onClick={() => setEditable(true)}>
                 Edit
               </Button>
             )}
 
             {(editable || isAddMode) && (
-              <Button
-                type="submit"
-                className="bg-primary text-primary-foreground px-6"
-              >
+              <Button type="submit">
                 {isAddMode ? "Create Task" : "Save Changes"}
               </Button>
             )}
