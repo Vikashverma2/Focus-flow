@@ -8,6 +8,7 @@ import {
   Settings,
   BarChart3,
   LogIn,
+  Search,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -84,10 +85,10 @@ export const UpcomingTasksPanel = () => {
   };
 
   return (
-  <Card className="card-container">
-    <CardHeader className="flex justify-between ">
-      <CardTitle className=" flex  justify-between">
-        <div 
+    <Card className="card-container">
+      <CardHeader className="flex justify-between ">
+        <CardTitle className=" flex  justify-between">
+          <div
             style={{
               gap: "10px",
               alignItems: "center",
@@ -100,11 +101,19 @@ export const UpcomingTasksPanel = () => {
                 fontSize: "16px",
               }}
             >
-              Upcoming Tasks
+              Tasks List <span style={{ color: "grey" }}>(6 tasks)</span>
             </p>
-        </div>
-        <div>         
-            <ThemeToggle />
+          </div>
+          <div
+            style={{
+              display: "flex",
+              gap: "10px",
+              alignItems: "center",
+              alignContent: "center",
+            }}
+          >
+            {/* <ThemeToggle /> */}
+            <Search color="grey" />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -122,7 +131,6 @@ export const UpcomingTasksPanel = () => {
                 </Button>
               </DropdownMenuTrigger>
 
-              
               <DropdownMenuContent align="end">
                 {isLoggedIn ? (
                   <>
@@ -154,24 +162,6 @@ export const UpcomingTasksPanel = () => {
           </div>
         </CardTitle>
       </CardHeader>
-
-       <div className="date-changer">
-         <div className="date-navigation">
-          <Button variant="ghost" size="sm" onClick={() => navigateDate("prev")}>
-            <ChevronLeft className="chevron-icon" />
-          </Button>
-
-          <div className="date-info">
-            <div className="date-day">{format(selectedDate, "EEEE")}</div>
-            <div className="date-full">{format(selectedDate, "MMM dd, yyyy")}</div>
-          </div>
-
-          <Button variant="ghost" size="sm" onClick={() => navigateDate("next")}>
-            <ChevronRight className="chevron-icon" />
-          </Button>
-        </div>
-       </div>
-      
 
       <CardContent className="card-content">
         {tasksForSelectedDate.length === 0 ? (
