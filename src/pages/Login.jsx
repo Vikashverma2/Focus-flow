@@ -80,7 +80,7 @@ export const Login = () => {
           </CardHeader>
 
           <CardContent className="login-content">
-            <Alert className="demo-alert">
+            <Alert className="flex">
               <Info className="icon-small" />
               <AlertDescription className="demo-text">
                 <strong>Demo Credentials:</strong><br />
