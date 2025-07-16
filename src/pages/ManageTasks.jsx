@@ -14,12 +14,13 @@ import {
   List,
   AlertCircle,
   PlayCircle,
+  ArrowLeft,
 } from "lucide-react";
 import { AddTaskDialog } from "@/components/AddTaskDialog";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "./ManageTasks.css"; // Your custom CSS file
-import { Table } from "antd";
+import { BackTop, Table } from "antd";
 import TaskDetailModal from "../components/TaskDetails";
 
 const mockTasks = [
@@ -162,7 +163,25 @@ export const ManageTasks = () => {
     <div>
       <main className="main-content">
         <div className="tasks-header">
-          <h1 className="tasks-title">Tasks</h1>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <div
+              onClick={() => navigate(-1)}
+              style={{
+                cursor: "pointer",
+                marginRight: "10px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "40px",
+                height: "40px",
+                borderRadius: "10%",
+                backgroundColor: "#323639",
+              }}
+            >
+              <ArrowLeft className="icon" />
+            </div>
+            <h1 className="tasks-title">Tasks</h1>
+          </div>
           <Button onClick={() => setIsAddTaskOpen(true)}>
             <Plus className="icon" /> Add
           </Button>

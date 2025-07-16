@@ -10,14 +10,18 @@ const Index = () => {
 
   return (
     <div
-      className="min-h-screen"
-      style={{ backgroundColor: colors.bgColor, color: colors.textColor }}
+      // className="min-h-screen"
+
+      style={{
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignContent: "center",
+        justifyContent: "center",
+        backgroundColor: colors.bgColor,
+        color: colors.textColor,
+      }}
     >
-      {/* Header only shown when not fullscreen  */}
-
-
-      {/* {!isFullscreen && <Header />} */}
-
       {isFullscreen ? (
         <ActiveTaskPanel
           isFullscreen={true}
@@ -27,7 +31,6 @@ const Index = () => {
         <main
           className="container mx-auto px-4 py-6"
           style={{
-            backgroundColor: colors.bgColor,
             color: colors.textColor,
           }}
         >
