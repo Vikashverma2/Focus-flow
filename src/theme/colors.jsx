@@ -28,3 +28,6 @@ export const theme = {
     completedBg: "#1e2e22",
   }
 };
+
+
+// bg color : 
