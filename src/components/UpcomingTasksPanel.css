@@ -75,15 +75,23 @@
 
 /* ===== Date navigation ===== */
 
+.date-changer{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+ padding-bottom: 20px;
+}
 
 .date-navigation {
-  width: 200px;
+  width: fit-content;
+  align-items: center;
+  gap: 10px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   background: var(--cardBg);
   border-radius: 6px;
-  padding: 8px;
-  margin-top: 8px;
+  padding: 10px 20px;
+  
 }
 
 .date-day {
@@ -97,6 +105,7 @@
 }
 
 /* ===== Card content ===== */
+
 .card-content {
   flex: 1;
   overflow-y: auto;
@@ -105,40 +114,17 @@
 
 .no-tasks {
   text-align: center;
-  padding: 48px 0;
+  
 }
 
-.no-tasks-icon {
-  width: 64px;
-  height: 64px;
-  color: var(--borderColor);
-  margin-bottom: 16px;
-}
-
-.no-tasks-text {
-  color: var(--secondaryTextColor);
-  font-size: 18px;
-  margin: 0;
-}
-
-.no-tasks-subtext {
-  color: var(--mutedTextColor);
-  font-size: 14px;
-  margin: 0;
-}
 
 /* ===== Tasks list & task card ===== */
 .tasks-list {
   display: flex;
   flex-direction: column;
+ 
 }
 
-.task-card {
-  border-left: 4px solid var(--borderColor);
-  background: var(--cardBg);
-  transition: all 0.2s ease;
-  cursor: pointer;
-}
 
 .task-card:hover {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -147,11 +133,6 @@
 .task-card.active {
   border-left-color: var(--accentColor);
   background: var(--activeBg);
-}
-
-.task-card.completed {
-  border-left-color: var(--successColor);
-  background: var(--completedBg);
 }
 
 .task-card.pending {
@@ -163,27 +144,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  gap: 0;
+  padding: 30px 10px;
+ 
+}
+
+.task-info{
+  display: flex;
+  gap: 10px; 
 }
 
 .task-title {
   font-weight: 600;
   color: var(--textColor);
-}
-
-.badge {
-  font-size: 10px;
-  padding: 4px 8px;
-  border-radius: 4px;
-  text-transform: capitalize;
-  background: var(--borderColor);
-  color: var(--textColor);
-}
-
-.task-description {
-  font-size: 13px;
-  color: var(--secondaryTextColor);
 }
 
 .task-time {

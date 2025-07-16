@@ -155,7 +155,8 @@ export const UpcomingTasksPanel = () => {
         </CardTitle>
       </CardHeader>
 
-        <div className="date-navigation">
+       <div className="date-changer">
+         <div className="date-navigation">
           <Button variant="ghost" size="sm" onClick={() => navigateDate("prev")}>
             <ChevronLeft className="chevron-icon" />
           </Button>
@@ -169,12 +170,12 @@ export const UpcomingTasksPanel = () => {
             <ChevronRight className="chevron-icon" />
           </Button>
         </div>
+       </div>
       
 
       <CardContent className="card-content">
         {tasksForSelectedDate.length === 0 ? (
           <div className="no-tasks">
-            <Calendar className="no-tasks-icon" />
             <p className="no-tasks-text">No tasks scheduled</p>
             <p className="no-tasks-subtext">
               {isToday(selectedDate)
