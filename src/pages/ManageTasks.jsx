@@ -19,6 +19,8 @@ import { AddTaskDialog } from "@/components/AddTaskDialog";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "./ManageTasks.css"; // Your custom CSS file
+import { Table } from "antd";
+import TaskDetailModal from "../components/TaskDetails";
 
 const mockTasks = [
   {
@@ -71,11 +73,35 @@ const mockTasks = [
   },
 ];
 
+const columns = [
+  {
+    title: "Title",
+    dataIndex: "title",
+    key: "title",
+    render: (text) => <a>{text}</a>,
+  },
+  {
+    title: "Start Time",
+    dataIndex: "startTime",
+    key: "startTime",
+  },
+  {
+    title: "End Time",
+    dataIndex: "endTime",
+    key: "endTime",
+  },
+  {
+    title: "Status",
+    dataIndex: "status",
+    key: "status",
+  },
+];
 export const ManageTasks = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
-  const [activeView, setActiveView] = useState("list");
-
+  const [activeView, setActiveView] = useState("table");
+  const [selectedTask, setSelectedTask] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
 
@@ -88,10 +114,13 @@ export const ManageTasks = () => {
   if (!isLoggedIn) return null;
 
   const TaskCard = ({ task }) => (
-    <Card className="task-card">
-      <CardContent className="task-card-content">
+    <Card>
+      <CardContent>
         <div className="task-header">
-          <div className="task-icon-container" style={{ backgroundColor: task.color }}>
+          <div
+            className="task-icon-container"
+            style={{ backgroundColor: task.color }}
+          >
             {task.icon}
           </div>
           <div className="task-info">
@@ -101,11 +130,16 @@ export const ManageTasks = () => {
           <Badge className={`task-badge ${task.status}`}>{task.status}</Badge>
         </div>
         <div className="task-time-progress">
-          <span>{task.startTime} - {task.endTime}</span>
+          <span>
+            {task.startTime} - {task.endTime}
+          </span>
           <span>{task.progress}%</span>
         </div>
         <div className="task-progress-bar">
-          <div className="task-progress-fill" style={{ width: `${task.progress}%`, backgroundColor: task.color }}></div>
+          <div
+            className="task-progress-fill"
+            style={{ width: `${task.progress}%`, backgroundColor: task.color }}
+          ></div>
         </div>
       </CardContent>
     </Card>
@@ -118,20 +152,18 @@ export const ManageTasks = () => {
     pending: [],
   };
 
-  mockTasks.forEach(task => {
+  mockTasks.forEach((task) => {
     if (groupedTasks[task.status]) {
       groupedTasks[task.status].push(task);
     }
   });
 
   return (
-    <div className="manage-tasks-container">
-      <Header />
-
+    <div>
       <main className="main-content">
         <div className="tasks-header">
           <h1 className="tasks-title">Tasks</h1>
-          <Button onClick={() => setIsAddTaskOpen(true)} className="add-btn">
+          <Button onClick={() => setIsAddTaskOpen(true)}>
             <Plus className="icon" /> Add
           </Button>
         </div>
@@ -139,41 +171,17 @@ export const ManageTasks = () => {
         <Tabs value={activeView} onValueChange={setActiveView}>
           <div className="tabs-header">
             <TabsList>
-              <TabsTrigger value="list">
-                <List className="icon" /> List
+              <TabsTrigger value="table">
+                <List className="icon" /> Table
               </TabsTrigger>
               <TabsTrigger value="calendar">
                 <CalendarIcon className="icon" /> Calendar
               </TabsTrigger>
             </TabsList>
-
             <Button variant="outline" className="filter-btn">
               <Filter className="icon" /> Filter
             </Button>
           </div>
-
-          <TabsContent value="list">
-            <div className="tasks-list">
-              {Object.entries(groupedTasks).map(([status, tasks]) =>
-                tasks.length > 0 ? (
-                  <div key={status} className="tasks-group">
-                    <h3 className={`group-title ${status}`}>
-                      {status === "active" && <PlayCircle className="icon" />}
-                      {status === "upcoming" && <Clock className="icon" />}
-                      {status === "completed" && <CheckCircle2 className="icon" />}
-                      {status === "pending" && <AlertCircle className="icon" />}
-                      {status.charAt(0).toUpperCase() + status.slice(1)}
-                    </h3>
-                    <div className="tasks-group-list">
-                      {tasks.map(task => (
-                        <TaskCard key={task.id} task={task} />
-                      ))}
-                    </div>
-                  </div>
-                ) : null
-              )}
-            </div>
-          </TabsContent>
 
           <TabsContent value="calendar">
             <div className="calendar-view">
@@ -182,21 +190,33 @@ export const ManageTasks = () => {
                   <CardTitle>Calendar</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <Calendar mode="single" selected={selectedDate} onSelect={setSelectedDate} />
+                  <Calendar
+                    mode="single"
+                    selected={selectedDate}
+                    onSelect={setSelectedDate}
+                  />
                 </CardContent>
               </Card>
 
               <Card className="tasks-calendar-card">
                 <CardHeader>
-                  <CardTitle>Tasks for {selectedDate?.toLocaleDateString()}</CardTitle>
+                  <CardTitle>
+                    Tasks for {selectedDate?.toLocaleDateString()}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent className="tasks-calendar-content">
                   {mockTasks
-                    .filter(task => task.date.toDateString() === selectedDate.toDateString())
-                    .map(task => (
+                    .filter(
+                      (task) =>
+                        task.date.toDateString() === selectedDate.toDateString()
+                    )
+                    .map((task) => (
                       <TaskCard key={task.id} task={task} />
                     ))}
-                  {mockTasks.filter(task => task.date.toDateString() === selectedDate.toDateString()).length === 0 && (
+                  {mockTasks.filter(
+                    (task) =>
+                      task.date.toDateString() === selectedDate.toDateString()
+                  ).length === 0 && (
                     <div className="no-tasks-message">
                       <CalendarIcon className="icon-large" />
                       <p>No tasks scheduled for this date</p>
@@ -206,10 +226,34 @@ export const ManageTasks = () => {
               </Card>
             </div>
           </TabsContent>
+          <TabsContent value="table">
+            <Table
+              rowKey="id"
+              onRow={(record) => {
+                return {
+                  onClick: () => {
+                    setSelectedTask(record);
+                    setIsModalVisible(true);
+                  },
+                };
+              }}
+              columns={columns}
+              dataSource={mockTasks}
+            />
+          </TabsContent>
         </Tabs>
       </main>
-
-      <AddTaskDialog open={isAddTaskOpen} onOpenChange={setIsAddTaskOpen} />
+      <AddTaskDialog
+        open={isModalVisible}
+        onOpenChange={setIsModalVisible}
+        mode="view"
+        task={selectedTask}
+      />
+      <AddTaskDialog
+        open={isAddTaskOpen}
+        onOpenChange={setIsAddTaskOpen}
+        mode="add"
+      />
     </div>
   );
 };
