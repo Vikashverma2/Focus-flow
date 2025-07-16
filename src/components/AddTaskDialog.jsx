@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { X, Clock, Repeat, Palette, Smile } from "lucide-react";
 import {
   Dialog,
@@ -19,49 +19,57 @@ import {
 } from "@/components/ui/select";
 
 const colors = [
-  { name: 'Blue', value: 'bg-primary', color: 'hsl(217 91% 60%)' },
-  { name: 'Green', value: 'bg-secondary', color: 'hsl(142 76% 36%)' },
-  { name: 'Yellow', value: 'bg-warning', color: 'hsl(38 92% 50%)' },
-  { name: 'Red', value: 'bg-destructive', color: 'hsl(0 84% 60%)' },
-  { name: 'Purple', value: 'bg-purple-500', color: 'hsl(271 91% 65%)' },
-  { name: 'Orange', value: 'bg-orange-500', color: 'hsl(20 90% 48%)' },
+  { name: "Blue", value: "bg-primary", color: "hsl(217 91% 60%)" },
+  { name: "Green", value: "bg-secondary", color: "hsl(142 76% 36%)" },
+  { name: "Yellow", value: "bg-warning", color: "hsl(38 92% 50%)" },
+  { name: "Red", value: "bg-destructive", color: "hsl(0 84% 60%)" },
+  { name: "Purple", value: "bg-purple-500", color: "hsl(271 91% 65%)" },
+  { name: "Orange", value: "bg-orange-500", color: "hsl(20 90% 48%)" },
 ];
 
-const icons = ['📚', '⚛️', '✍️', '🧮', '🔬', '🎨', '💻', '🎵', '🏃‍♂️', '🧘‍♀️'];
+const icons = ["📚", "⚛️", "✍️", "🧮", "🔬", "🎨", "💻", "🎵", "🏃‍♂️", "🧘‍♀️"];
 
 const repeatOptions = [
-  { label: 'No Repeat', value: 'none' },
-  { label: 'Daily', value: 'daily' },
-  { label: 'Every Other Day', value: 'alternate' },
-  { label: 'Weekly', value: 'weekly' },
-  { label: 'Custom', value: 'custom' },
+  { label: "No Repeat", value: "none" },
+  { label: "Daily", value: "daily" },
+  { label: "Every Other Day", value: "alternate" },
+  { label: "Weekly", value: "weekly" },
+  { label: "Custom", value: "custom" },
 ];
 
-export const AddTaskDialog = ({ open, onOpenChange }) => {
+export const AddTaskDialog = ({
+  open,
+  onOpenChange,
+  mode = "add",
+  task = null,
+}) => {
+  const isViewMode = mode === "view";
+  const isEditMode = mode === "edit";
+  const isAddMode = mode === "add";
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    startTime: '',
-    endTime: '',
-    repeat: 'none',
-    color: 'bg-primary',
-    icon: '📚'
+    title: "",
+    description: "",
+    startTime: "",
+    endTime: "",
+    repeat: "none",
+    color: "bg-primary",
+    icon: "📚",
   });
-
+  const [editable, setEditable] = useState(isAddMode);
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Creating task:', formData);
+    console.log("Creating task:", formData);
     // Here you would typically save the task
     onOpenChange(false);
     // Reset form
     setFormData({
-      title: '',
-      description: '',
-      startTime: '',
-      endTime: '',
-      repeat: 'none',
-      color: 'bg-primary',
-      icon: '📚'
+      title: "",
+      description: "",
+      startTime: "",
+      endTime: "",
+      repeat: "none",
+      color: "bg-primary",
+      icon: "📚",
     });
   };
 
@@ -71,17 +79,37 @@ export const AddTaskDialog = ({ open, onOpenChange }) => {
       const end = new Date(`2000-01-01T${formData.endTime}`);
       const diffMs = end.getTime() - start.getTime();
       const diffHours = diffMs / (1000 * 60 * 60);
-      return diffHours > 0 ? `${diffHours.toFixed(1)} hours` : '';
+      return diffHours > 0 ? `${diffHours.toFixed(1)} hours` : "";
     }
-    return '';
+    return "";
   };
-
+  useEffect(() => {
+    if (task) {
+      setFormData(task);
+      setEditable(isEditMode);
+    } else {
+      setFormData({
+        title: "",
+        description: "",
+        startTime: "",
+        endTime: "",
+        repeat: "none",
+        color: "bg-primary",
+        icon: "📚",
+      });
+      setEditable(true);
+    }
+  }, [task, mode]);
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[600px] bg-card border shadow-lg">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-primary flex items-center">
-            Add New Task
+            {isAddMode
+              ? "Add New Task"
+              : isEditMode || editable
+              ? "Edit Task"
+              : "View Task"}
           </DialogTitle>
         </DialogHeader>
 
@@ -92,10 +120,13 @@ export const AddTaskDialog = ({ open, onOpenChange }) => {
               Title *
             </Label>
             <Input
+              disabled={!editable}
               id="title"
               placeholder="Enter task title..."
               value={formData.title}
-              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, title: e.target.value })
+              }
               required
               className="bg-background border-input"
             />
@@ -107,10 +138,13 @@ export const AddTaskDialog = ({ open, onOpenChange }) => {
               Description
             </Label>
             <Textarea
+              disabled={!editable}
               id="description"
               placeholder="Add a description for your task..."
               value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, description: e.target.value })
+              }
               className="bg-background border-input min-h-[80px]"
             />
           </div>
@@ -118,15 +152,21 @@ export const AddTaskDialog = ({ open, onOpenChange }) => {
           {/* Time Selection */}
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="startTime" className="text-sm font-medium flex items-center">
+              <Label
+                htmlFor="startTime"
+                className="text-sm font-medium flex items-center"
+              >
                 <Clock className="w-4 h-4 mr-1" />
                 Start Time *
               </Label>
               <Input
+                disabled={!editable}
                 id="startTime"
                 type="time"
                 value={formData.startTime}
-                onChange={(e) => setFormData({ ...formData, startTime: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, startTime: e.target.value })
+                }
                 required
                 className="bg-background border-input"
               />
@@ -136,10 +176,13 @@ export const AddTaskDialog = ({ open, onOpenChange }) => {
                 End Time *
               </Label>
               <Input
+                disabled={!editable}
                 id="endTime"
                 type="time"
                 value={formData.endTime}
-                onChange={(e) => setFormData({ ...formData, endTime: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, endTime: e.target.value })
+                }
                 required
                 className="bg-background border-input"
               />
@@ -162,8 +205,11 @@ export const AddTaskDialog = ({ open, onOpenChange }) => {
               Repeat Duration
             </Label>
             <Select
+              disabled={!editable}
               value={formData.repeat}
-              onValueChange={(value) => setFormData({ ...formData, repeat: value })}
+              onValueChange={(value) =>
+                setFormData({ ...formData, repeat: value })
+              }
             >
               <SelectTrigger className="bg-background border-input">
                 <SelectValue placeholder="Select repeat option" />
@@ -189,11 +235,13 @@ export const AddTaskDialog = ({ open, onOpenChange }) => {
                 <button
                   key={color.value}
                   type="button"
-                  onClick={() => setFormData({ ...formData, color: color.value })}
+                  onClick={() =>
+                    setFormData({ ...formData, color: color.value })
+                  }
                   className={`w-8 h-8 rounded-full border-2 transition-all ${
                     formData.color === color.value
-                      ? 'border-foreground scale-110'
-                      : 'border-muted hover:scale-105'
+                      ? "border-foreground scale-110"
+                      : "border-muted hover:scale-105"
                   }`}
                   style={{ backgroundColor: color.color }}
                   title={color.name}
@@ -216,8 +264,8 @@ export const AddTaskDialog = ({ open, onOpenChange }) => {
                   onClick={() => setFormData({ ...formData, icon })}
                   className={`w-10 h-10 rounded-lg border transition-all flex items-center justify-center text-lg ${
                     formData.icon === icon
-                      ? 'border-primary bg-primary/10 scale-110'
-                      : 'border-muted hover:border-primary/50 hover:scale-105'
+                      ? "border-primary bg-primary/10 scale-110"
+                      : "border-muted hover:border-primary/50 hover:scale-105"
                   }`}
                 >
                   {icon}
@@ -228,19 +276,28 @@ export const AddTaskDialog = ({ open, onOpenChange }) => {
 
           {/* Action Buttons */}
           <div className="flex justify-end space-x-3 pt-4">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => onOpenChange(false)}
-            >
-              Cancel
+            <Button variant="outline" onClick={() => onOpenChange(false)}>
+              Close
             </Button>
-            <Button
-              type="submit"
-              className="bg-primary hover:bg-primary-dark text-primary-foreground px-8"
-            >
-              Create Task
-            </Button>
+
+            {!editable && !isAddMode && (
+              <Button
+                type="button"
+                onClick={() => setEditable(true)}
+                className="bg-primary text-primary-foreground"
+              >
+                Edit
+              </Button>
+            )}
+
+            {(editable || isAddMode) && (
+              <Button
+                type="submit"
+                className="bg-primary text-primary-foreground px-6"
+              >
+                {isAddMode ? "Create Task" : "Save Changes"}
+              </Button>
+            )}
           </div>
         </form>
       </DialogContent>
