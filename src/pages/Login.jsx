@@ -9,6 +9,7 @@ import { Eye, EyeOff, ArrowLeft, Info } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth, DEMO_CREDENTIALS } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
+import "./Login.css"; // <-- Create and import your custom CSS file
 
 export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -16,7 +17,7 @@ export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const { login } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -24,7 +25,6 @@ export const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    
     try {
       const success = login(email, password);
       if (success) {
@@ -32,7 +32,7 @@ export const Login = () => {
           title: "Login successful",
           description: "Welcome back to Study Planner!",
         });
-        navigate('/');
+        navigate("/");
       } else {
         toast({
           title: "Login failed",
@@ -40,7 +40,7 @@ export const Login = () => {
           variant: "destructive",
         });
       }
-    } catch (error) {
+    } catch {
       toast({
         title: "Error",
         description: "Something went wrong. Please try again.",
@@ -57,39 +57,38 @@ export const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-muted flex items-center justify-center p-4">
-      <div className="w-full max-w-md mx-auto">
-        <div className="mb-6 text-center">
-          <Link to="/" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors">
-            <ArrowLeft className="w-4 h-4 mr-2" />
+    <div className="login-container">
+      <div className="login-wrapper">
+        <div className="login-back-link">
+          <Link to="/" className="back-link">
+            <ArrowLeft className="icon" />
             Back to Study Planner
           </Link>
         </div>
 
-        <Card className="border-0 shadow-xl bg-card/80 backdrop-blur w-full">
-          <CardHeader className="text-center space-y-2">
-            <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-light rounded-full flex items-center justify-center mx-auto">
-              <span className="text-primary-foreground font-bold text-xl">SP</span>
+        <Card className="login-card">
+          <CardHeader className="login-header">
+            <div className="logo-circle">
+              <span className="logo-text">SP</span>
             </div>
-            <CardTitle className="text-3xl font-bold bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
-              {isSignUp ? 'Create Account' : 'Welcome Back'}
+            <CardTitle className="login-title">
+              {isSignUp ? "Create Account" : "Welcome Back"}
             </CardTitle>
-            <p className="text-muted-foreground">
-              {isSignUp ? 'Start your study journey today' : 'Sign in to continue your study journey'}
+            <p className="login-subtitle">
+              {isSignUp ? "Start your study journey today" : "Sign in to continue your study journey"}
             </p>
           </CardHeader>
 
-          <CardContent className="space-y-6">
-            {/* Demo Credentials Alert */}
-            <Alert className="border-primary/20 bg-primary/5">
-              <Info className="h-4 w-4" />
-              <AlertDescription className="text-sm">
+          <CardContent className="login-content">
+            <Alert className="demo-alert">
+              <Info className="icon-small" />
+              <AlertDescription className="demo-text">
                 <strong>Demo Credentials:</strong><br />
                 Email: {DEMO_CREDENTIALS.email}<br />
                 Password: {DEMO_CREDENTIALS.password}
-                <Button 
-                  variant="link" 
-                  className="p-0 h-auto ml-2 text-primary"
+                <Button
+                  variant="link"
+                  className="demo-button"
                   onClick={handleDemoLogin}
                 >
                   Use Demo
@@ -97,39 +96,35 @@ export const Login = () => {
               </AlertDescription>
             </Alert>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="login-form">
               {isSignUp && (
-                <div className="space-y-2">
+                <div className="form-group">
                   <Label htmlFor="name">Full Name</Label>
-                  <Input
-                    id="name"
-                    placeholder="Enter your full name"
-                    className="h-12"
-                  />
+                  <Input id="name" placeholder="Enter your full name" className="form-input" />
                 </div>
               )}
 
-              <div className="space-y-2">
+              <div className="form-group">
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
                   type="email"
                   placeholder="Enter your email"
-                  className="h-12"
+                  className="form-input"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </div>
 
-              <div className="space-y-2">
+              <div className="form-group">
                 <Label htmlFor="password">Password</Label>
-                <div className="relative">
+                <div className="password-wrapper">
                   <Input
                     id="password"
                     type={showPassword ? "text" : "password"}
                     placeholder="Enter your password"
-                    className="h-12 pr-12"
+                    className="form-input"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
@@ -137,61 +132,46 @@ export const Login = () => {
                   <Button
                     type="button"
                     variant="ghost"
-                    size="sm"
-                    className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 p-0"
+                    className="toggle-password-btn"
                     onClick={() => setShowPassword(!showPassword)}
                   >
-                    {showPassword ? (
-                      <EyeOff className="h-4 w-4" />
-                    ) : (
-                      <Eye className="h-4 w-4" />
-                    )}
+                    {showPassword ? <EyeOff className="icon-small" /> : <Eye className="icon-small" />}
                   </Button>
                 </div>
               </div>
 
               {isSignUp && (
-                <div className="space-y-2">
+                <div className="form-group">
                   <Label htmlFor="confirmPassword">Confirm Password</Label>
                   <Input
                     id="confirmPassword"
                     type="password"
                     placeholder="Confirm your password"
-                    className="h-12"
+                    className="form-input"
                   />
                 </div>
               )}
 
-              <Button 
-                type="submit"
-                className="w-full h-12 bg-gradient-to-r from-primary to-primary-light text-primary-foreground font-semibold"
-                disabled={isLoading}
-              >
-                {isLoading ? 'Signing In...' : (isSignUp ? 'Create Account' : 'Sign In')}
+              <Button type="submit" className="submit-btn" disabled={isLoading}>
+                {isLoading ? "Signing In..." : isSignUp ? "Create Account" : "Sign In"}
               </Button>
             </form>
 
-            <div className="relative">
+            <div className="separator-wrapper">
               <Separator />
-              <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-card px-2 text-xs text-muted-foreground">
-                OR
-              </span>
+              <span className="separator-text">OR</span>
             </div>
 
-            <Button variant="outline" className="w-full h-12">
+            <Button variant="outline" className="google-btn">
               Continue with Google
             </Button>
 
-            <div className="text-center text-sm">
-              <span className="text-muted-foreground">
-                {isSignUp ? 'Already have an account?' : "Don't have an account?"}
+            <div className="switch-text">
+              <span>
+                {isSignUp ? "Already have an account?" : "Don't have an account?"}
               </span>
-              <Button
-                variant="link"
-                className="p-0 ml-1 h-auto text-primary"
-                onClick={() => setIsSignUp(!isSignUp)}
-              >
-                {isSignUp ? 'Sign in' : 'Sign up'}
+              <Button variant="link" className="switch-link" onClick={() => setIsSignUp(!isSignUp)}>
+                {isSignUp ? "Sign in" : "Sign up"}
               </Button>
             </div>
           </CardContent>

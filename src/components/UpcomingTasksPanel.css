@@ -1,12 +1,14 @@
+/* ===== Card container ===== */
 .card-container {
-  background-color: #fff;
-  border: 1px solid #ddd;
+  background-color: var(--cardBg);
+  border: 1px solid var(--borderColor);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   height: 100%;
   display: flex;
   flex-direction: column;
 }
 
+/* ===== Header ===== */
 .card-header {
   display: flex;
   flex-direction: column;
@@ -20,7 +22,7 @@
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 20px;
-  color: #007bff;
+  color: var(--accentColor);
 }
 
 .icon {
@@ -33,23 +35,20 @@
   display: flex;
   align-items: center;
   margin-top: 8px;
-  background-color: #f9f9f9;
+  background-color: var(--cardBg);
   padding: 4px 8px;
   border-radius: 4px;
 }
 
 .avatar-button {
-padding: 0;
+  padding: 0;
 }
 
-.avatar {
+.avatar,
+.avatar-fallback {
   height: 52px;
   width: 52px;
-  background-color: #007bff;
-}
-
-.avatar-fallback {
-  background: #007bff;
+  background-color: var(--accentColor);
   color: #fff;
   display: flex;
   align-items: center;
@@ -57,10 +56,11 @@ padding: 0;
   border-radius: 50%;
 }
 
+/* ===== Menu ===== */
 .menu-content {
   width: 192px;
-  background: #fff;
-  border: 1px solid #ddd;
+  background: var(--cardBg);
+  border: 1px solid var(--borderColor);
 }
 
 .menu-item {
@@ -69,10 +69,11 @@ padding: 0;
   align-items: center;
   padding: 8px 12px;
   font-size: 14px;
+  color: var(--textColor);
 }
 
 .menu-item:hover {
-  background-color: #f5f5f5;
+  background-color: var(--hoverBg);
 }
 
 .menu-icon {
@@ -82,42 +83,30 @@ padding: 0;
 }
 
 .logout-item {
-  color: #dc3545;
+  color: #ff4d4f;
 }
 
+/* ===== Date navigation ===== */
 .date-navigation {
   display: flex;
   justify-content: space-between;
-  background: #f0f0f0;
+  background: var(--cardBg);
   border-radius: 6px;
   padding: 8px;
   margin-top: 8px;
 }
 
-.nav-button {
-  height: 32px;
-  width: 32px;
-  padding: 0;
-}
-
-.chevron-icon {
-  width: 16px;
-  height: 16px;
-}
-
-.date-info {
-  text-align: center;
-}
-
 .date-day {
   font-weight: 600;
+  color: var(--textColor);
 }
 
 .date-full {
   font-size: 12px;
-  color: #666;
+  color: var(--secondaryTextColor);
 }
 
+/* ===== Card content ===== */
 .card-content {
   flex: 1;
   overflow-y: auto;
@@ -132,78 +121,65 @@ padding: 0;
 .no-tasks-icon {
   width: 64px;
   height: 64px;
-  color: #ccc;
+  color: var(--borderColor);
   margin-bottom: 16px;
 }
 
 .no-tasks-text {
-  color: #666;
+  color: var(--secondaryTextColor);
   font-size: 18px;
   margin: 0;
 }
 
 .no-tasks-subtext {
-  color: #999;
+  color: var(--mutedTextColor);
   font-size: 14px;
   margin: 0;
 }
 
+/* ===== Tasks list & task card ===== */
 .tasks-list {
   display: flex;
   flex-direction: column;
-  
-  /* background-color: #007bff; */
 }
 
 .task-card {
-   
-  border-left: 4px solid #ddd;
-  background: #f9f9f9;
+  border-left: 4px solid var(--borderColor);
+  background: var(--cardBg);
   transition: all 0.2s ease;
   cursor: pointer;
 }
 
 .task-card:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .task-card.active {
-  border-left-color: #007bff;
-  background: #e6f0ff;
+  border-left-color: var(--accentColor);
+  background: var(--activeBg);
 }
 
 .task-card.completed {
-  border-left-color: #28a745;
-  background: #e9f7ef;
+  border-left-color: var(--successColor);
+  background: var(--completedBg);
 }
 
 .task-card.pending {
-  border-left-color: #6c757d;
-  background: #f8f9fa;
+  border-left-color: var(--pendingColor);
+  background: var(--cardBg);
 }
-
-
 
 .task-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
- padding: 20px;
- gap: 0px;
-}
-
-.task-info {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.task-icon {
-  font-size: 20px;
+  padding: 20px;
+  gap: 0;
 }
 
 .task-title {
   font-weight: 600;
+  color: var(--textColor);
 }
 
 .badge {
@@ -211,19 +187,20 @@ padding: 0;
   padding: 4px 8px;
   border-radius: 4px;
   text-transform: capitalize;
+  background: var(--borderColor);
+  color: var(--textColor);
 }
 
 .task-description {
   font-size: 13px;
-  color: #666;
- 
+  color: var(--secondaryTextColor);
 }
 
 .task-time {
   display: flex;
   align-items: center;
   font-size: 12px;
-  color: #666;
+  color: var(--mutedTextColor);
 }
 
 .clock-icon {

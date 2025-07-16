@@ -11,7 +11,6 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { format, addDays, subDays, isToday } from "date-fns";
 import {
   DropdownMenu,
@@ -23,20 +22,12 @@ import {
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 import "./UpcomingTasksPanel.css";
-
-function useAuth(): { isLoggedIn: boolean; logout: () => void } {
-  const isLoggedIn = true;
-  const logout = () => {
-    console.log("Logged out!");
-  };
-  return { isLoggedIn, logout };
-}
 
 interface Task {
   id: string;
   title: string;
-  // description: string;
   startTime: string;
   endTime: string;
   icon: string;
@@ -168,26 +159,16 @@ export const UpcomingTasksPanel = () => {
         </CardTitle>
 
         <div className="date-navigation">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => navigateDate("prev")}
-          >
+          <Button variant="ghost" size="sm" onClick={() => navigateDate("prev")}>
             <ChevronLeft className="chevron-icon" />
           </Button>
 
           <div className="date-info">
             <div className="date-day">{format(selectedDate, "EEEE")}</div>
-            <div className="date-full">
-              {format(selectedDate, "MMM dd, yyyy")}
-            </div>
+            <div className="date-full">{format(selectedDate, "MMM dd, yyyy")}</div>
           </div>
 
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => navigateDate("next")}
-          >
+          <Button variant="ghost" size="sm" onClick={() => navigateDate("next")}>
             <ChevronRight className="chevron-icon" />
           </Button>
         </div>
@@ -208,18 +189,12 @@ export const UpcomingTasksPanel = () => {
           <div className="tasks-list">
             {tasksForSelectedDate.map((task) => (
               <Card key={task.id} className={`task-card ${task.status}`}>
-                <div
-                  className="task-header">
+                <div className="task-header">
                   <div className="task-info">
                     <span className="task-icon">{task.icon}</span>
                     <h4 className="task-title">{task.title}</h4>
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
+                  <div style={{ display: "flex", alignItems: "center" }}>
                     <Clock className="clock-icon" />
                     {task.startTime} - {task.endTime}
                   </div>
