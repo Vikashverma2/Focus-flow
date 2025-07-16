@@ -236,7 +236,7 @@ export const ActiveTaskPanel = ({
             <Button
               onClick={handleStart}
               size={isFullscreen ? "lg" : "default"}
-              className="start-btn"
+              style={{ backgroundColor: "#007bff", color: "#fff" }}
             >
               <Play /> Start
             </Button>
@@ -244,7 +244,7 @@ export const ActiveTaskPanel = ({
             <Button
               onClick={handlePause}
               size={isFullscreen ? "lg" : "default"}
-              className="pause-btn"
+              style={{ backgroundColor: "#28a745", color: "#fff" }}
             >
               <Pause /> Pause
             </Button>
@@ -253,7 +253,7 @@ export const ActiveTaskPanel = ({
           <Button
             onClick={handleComplete}
             size={isFullscreen ? "lg" : "default"}
-            className="complete-btn"
+            style={{ backgroundColor: "tomato", color: "#fff" }}
           >
             <CheckCircle2 /> Complete
           </Button>

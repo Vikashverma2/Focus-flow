@@ -84,10 +84,10 @@ export const UpcomingTasksPanel = () => {
   };
 
   return (
-    <Card className="card-container">
-      <CardHeader className="card-header">
-        <CardTitle className="card-title">
-          <div
+  <Card className="card-container">
+    <CardHeader className="flex justify-between ">
+      <CardTitle className=" flex  justify-between">
+        <div 
             style={{
               gap: "10px",
               alignItems: "center",
@@ -102,14 +102,8 @@ export const UpcomingTasksPanel = () => {
             >
               Upcoming Tasks
             </p>
-          </div>
-          <div
-            style={{
-              gap: "10px",
-              alignItems: "center",
-              display: "flex",
-            }}
-          >
+        </div>
+        <div>         
             <ThemeToggle />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -127,6 +121,8 @@ export const UpcomingTasksPanel = () => {
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
+
+              
               <DropdownMenuContent align="end">
                 {isLoggedIn ? (
                   <>
@@ -157,6 +153,7 @@ export const UpcomingTasksPanel = () => {
             </DropdownMenu>
           </div>
         </CardTitle>
+      </CardHeader>
 
         <div className="date-navigation">
           <Button variant="ghost" size="sm" onClick={() => navigateDate("prev")}>
@@ -172,7 +169,7 @@ export const UpcomingTasksPanel = () => {
             <ChevronRight className="chevron-icon" />
           </Button>
         </div>
-      </CardHeader>
+      
 
       <CardContent className="card-content">
         {tasksForSelectedDate.length === 0 ? (

@@ -43,6 +43,7 @@
 }
 
 /* ===== Content & session title ===== */
+
 .content {
   display: flex;
   flex-direction: column;
@@ -71,6 +72,8 @@
 }
 
 /* ===== Controls (buttons) ===== */
+/* ===== Controls (buttons) ===== */
+
 .controls {
   display: flex;
   gap: 10px;
@@ -80,12 +83,12 @@
 }
 
 .start-btn {
-  background: var(--accentColor);
+  background: #007bff; /* blue */
   color: #fff;
 }
 
 .pause-btn {
-  background: var(--pendingColor);
+  background: #28a745; /* green */
   color: #fff;
 }
 
@@ -96,9 +99,10 @@
 }
 
 .complete-btn {
-  background: var(--successColor);
+  background: tomato; /* tomato */
   color: #fff;
 }
+
 
 /* ===== Completed state ===== */
 .completed-card {
@@ -136,6 +140,7 @@
 }
 
 /* ===== Circular progress style ===== */
+
 .circular-wrapper {
   position: relative;
 }
@@ -175,6 +180,7 @@
 }
 
 /* ===== Countdown styles ===== */
+
 .circle-style,
 .minimal-style,
 .neon-style,
@@ -242,7 +248,7 @@
 }
 
 .digital-time {
-  font-size: 48px;
+  font-size: 8rem;
   font-family: monospace;
   font-weight: bold;
   color: var(--accentColor);
