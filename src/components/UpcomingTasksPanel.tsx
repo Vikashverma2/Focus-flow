@@ -10,6 +10,7 @@ import {
   LogIn,
   Search,
 } from "lucide-react";
+import { Checkbox, Col, Row } from "antd";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { format, addDays, subDays, isToday } from "date-fns";
@@ -34,7 +35,6 @@ interface Task {
   icon: string;
   status: "pending" | "completed" | "active";
 }
-
 const mockTasks: Task[] = [
   {
     id: "1",
@@ -58,6 +58,62 @@ const mockTasks: Task[] = [
     startTime: "19:00",
     endTime: "21:00",
     icon: "✍️",
+    status: "pending",
+  },
+  {
+    id: "4",
+    title: "Chemistry Revision",
+    startTime: "11:30",
+    endTime: "12:30",
+    icon: "🧪",
+    status: "completed",
+  },
+  {
+    id: "5",
+    title: "Computer Science Practice",
+    startTime: "16:30",
+    endTime: "18:00",
+    icon: "💻",
+    status: "pending",
+  },
+  {
+    id: "6",
+    title: "Biology Notes Review",
+    startTime: "08:00",
+    endTime: "09:00",
+    icon: "🧬",
+    status: "completed",
+  },
+  {
+    id: "7",
+    title: "Geography Map Practice",
+    startTime: "10:00",
+    endTime: "11:00",
+    icon: "🗺️",
+    status: "pending",
+  },
+  {
+    id: "8",
+    title: "Art & Sketching",
+    startTime: "13:00",
+    endTime: "14:30",
+    icon: "🎨",
+    status: "active",
+  },
+  {
+    id: "9",
+    title: "Economics Reading",
+    startTime: "15:00",
+    endTime: "16:00",
+    icon: "📈",
+    status: "completed",
+  },
+  {
+    id: "10",
+    title: "English Vocabulary Practice",
+    startTime: "20:00",
+    endTime: "21:00",
+    icon: "📝",
     status: "pending",
   },
 ];
@@ -163,7 +219,12 @@ export const UpcomingTasksPanel = () => {
         </CardTitle>
       </CardHeader>
 
-      <CardContent className="card-content">
+      <CardContent
+        style={{
+          height: "70vh",
+          overflowY: "auto",
+        }}
+      >
         {tasksForSelectedDate.length === 0 ? (
           <div className="no-tasks">
             <p className="no-tasks-text">No tasks scheduled</p>
@@ -174,20 +235,60 @@ export const UpcomingTasksPanel = () => {
             </p>
           </div>
         ) : (
-          <div className="tasks-list">
+          <div
+            style={{
+              gap: "10px",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
             {tasksForSelectedDate.map((task) => (
-              <Card key={task.id} className={`task-card ${task.status}`}>
-                <div className="task-header">
-                  <div className="task-info">
-                    <span className="task-icon">{task.icon}</span>
-                    <h4 className="task-title">{task.title}</h4>
+              <Row
+                style={{
+                  padding: "10px 0px",
+                  // backgroundColor: "red",
+                }}
+              >
+                <Row style={{ gap: "10px", width: "100%" }} align={"middle"}>
+                  <div className="scale-150">
+                    <Checkbox checked={task.status === "completed"} />
                   </div>
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <Clock className="clock-icon" />
-                    {task.startTime} - {task.endTime}
+
+                  <div
+                    style={{
+                      backgroundColor: "#4e4e4eff",
+                      fontSize: "30px",
+                      height: "60px",
+                      width: "60px",
+                      display: "flex",
+                      alignContent: "center",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      justifyItems: "center",
+                      borderRadius: "15px",
+                    }}
+                  >
+                    {task.icon}
                   </div>
-                </div>
-              </Card>
+                  <Col
+                    style={{
+                      width: "80%",
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontSize: "20px",
+                      }}
+                    >
+                      {task.title}
+                    </div>
+                    <Row justify={"space-between"}>
+                      <div>{task.id}</div>
+                      <div>At : {task.endTime}</div>
+                    </Row>
+                  </Col>
+                </Row>
+              </Row>
             ))}
           </div>
         )}
