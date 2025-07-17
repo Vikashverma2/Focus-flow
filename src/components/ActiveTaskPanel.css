@@ -12,6 +12,7 @@
   z-index: 50;
   background: var(--bgColor);
   border: none;
+  background-color: #007bff;
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
 }
 
@@ -74,7 +75,6 @@
 
 /* ===== Controls (buttons) ===== */
 
-
 .controls {
   display: flex;
   gap: 20px;
@@ -103,7 +103,6 @@
   background: tomato; /* tomato */
   color: #fff;
 }
-
 
 /* ===== Completed state ===== */
 

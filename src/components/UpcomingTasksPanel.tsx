@@ -251,7 +251,10 @@ export const UpcomingTasksPanel = () => {
               >
                 <Row style={{ gap: "10px", width: "100%" }} align={"middle"}>
                   <div className="scale-150">
-                    <Checkbox checked={task.status === "completed"} />
+                    <Checkbox
+                      checked={task.status === "completed"}
+                      className="custom-checkbox"
+                    />
                   </div>
 
                   <div

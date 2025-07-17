@@ -10,14 +10,12 @@ const Index = () => {
 
   return (
     <div
-      // className="min-h-screen"
-
       style={{
         height: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        alignContent: "center",
-        justifyContent: "center",
+        // display: "flex",
+        // flexDirection: "column",
+        // alignContent: "center",
+        // justifyContent: "center",
         backgroundColor: colors.bgColor,
         color: colors.textColor,
       }}

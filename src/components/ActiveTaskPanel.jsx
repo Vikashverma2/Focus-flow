@@ -66,6 +66,7 @@ export const ActiveTaskPanel = ({
       className={isFullscreen ? "fullscreen-card" : "normal-card"}
       style={{
         padding: "20px",
+        height: isFullscreen ? "100vh" : "none",
       }}
     >
       <Row justify={"space-between"} align={"middle"}>
@@ -100,7 +101,7 @@ export const ActiveTaskPanel = ({
         <Row
           justify={"center"}
           style={{
-            fontSize: "8rem",
+            fontSize: isFullscreen ? "20rem" : "8rem",
             fontWeight: "bolder",
           }}
         >
@@ -109,7 +110,7 @@ export const ActiveTaskPanel = ({
         <Row justify={"center"}>
           <Row
             style={{
-              width: "70%",
+              width: isFullscreen ? "40%" : "70%",
             }}
           >
             <Progress

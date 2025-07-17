@@ -10,7 +10,17 @@
 
 /* ===== Header ===== */
 
+/* Tailwind override with custom class */
+.custom-checkbox .ant-checkbox-inner {
+  background-color: #757575; /* light cyan */
+  border: none;
+  border-radius: 5px;
+}
 
+.custom-checkbox .ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #00aeff !important; /* checked background */
+  /* border-color: #0ea5e9 !important; */
+}
 
 .icon {
   width: 20px;
@@ -75,11 +85,11 @@
 
 /* ===== Date navigation ===== */
 
-.date-changer{
+.date-changer {
   display: flex;
   width: 100%;
   justify-content: center;
- padding-bottom: 20px;
+  padding-bottom: 20px;
 }
 
 .date-navigation {
@@ -91,7 +101,6 @@
   background: var(--cardBg);
   border-radius: 6px;
   padding: 10px 20px;
-  
 }
 
 .date-day {
@@ -114,17 +123,13 @@
 
 .no-tasks {
   text-align: center;
-  
 }
-
 
 /* ===== Tasks list & task card ===== */
 .tasks-list {
   display: flex;
   flex-direction: column;
- 
 }
-
 
 .task-card:hover {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -145,12 +150,11 @@
   justify-content: space-between;
   align-items: center;
   padding: 30px;
- 
 }
 
-.task-info{
+.task-info {
   display: flex;
-  gap: 10px; 
+  gap: 10px;
 }
 
 .task-title {
