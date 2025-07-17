@@ -10,7 +10,7 @@ import {
   LogIn,
   Search,
 } from "lucide-react";
-import { Checkbox, Col, Row } from "antd";
+import { Checkbox, Col, Input, Row } from "antd";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { format, addDays, subDays, isToday } from "date-fns";
@@ -25,6 +25,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
+import NoTaskMessage from "../components/NoTaskMessage.jsx";
 import "./UpcomingTasksPanel.css";
 
 interface Task {
@@ -121,6 +122,7 @@ const mockTasks: Task[] = [
 export const UpcomingTasksPanel = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const { isLoggedIn, logout } = useAuth();
+  const [searchText, setSearchText] = useState("");
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -128,17 +130,7 @@ export const UpcomingTasksPanel = () => {
     navigate("/");
   };
 
-  const getTasksForDate = (date: Date) => {
-    return isToday(date) ? mockTasks : [];
-  };
-
-  const tasksForSelectedDate = getTasksForDate(selectedDate);
-
-  const navigateDate = (direction: "prev" | "next") => {
-    setSelectedDate((prev) =>
-      direction === "prev" ? subDays(prev, 1) : addDays(prev, 1)
-    );
-  };
+  var demoTask = [];
 
   return (
     <Card className="card-container">
@@ -169,7 +161,34 @@ export const UpcomingTasksPanel = () => {
             }}
           >
             {/* <ThemeToggle /> */}
-            <Search color="grey" />
+
+            <Input
+              placeholder="Search here.."
+              onChange={(value) => {
+                setSearchText(value.target.value);
+              }}
+              style={{
+                // padding: "5px",
+                fontSize: "20px",
+                fontWeight: "normal",
+                backgroundColor: "#323639",
+                border: "1px solid #444444",
+                borderRadius: "10px",
+                color: "white",
+              }}
+            />
+            <div
+              onClick={() => {}}
+              style={{
+                padding: "10px",
+                backgroundColor: "#323639",
+                border: "1px solid #444444",
+                borderRadius: "15px",
+                cursor: "pointer",
+              }}
+            >
+              <Search color="grey" />
+            </div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -225,15 +244,8 @@ export const UpcomingTasksPanel = () => {
           overflowY: "auto",
         }}
       >
-        {tasksForSelectedDate.length === 0 ? (
-          <div className="no-tasks">
-            <p className="no-tasks-text">No tasks scheduled</p>
-            <p className="no-tasks-subtext">
-              {isToday(selectedDate)
-                ? "for today"
-                : `for ${format(selectedDate, "MMM dd")}`}
-            </p>
-          </div>
+        {mockTasks.length === 0 ? (
+          <NoTaskMessage />
         ) : (
           <div
             style={{
@@ -242,7 +254,7 @@ export const UpcomingTasksPanel = () => {
               flexDirection: "column",
             }}
           >
-            {tasksForSelectedDate.map((task) => (
+            {mockTasks.map((task) => (
               <Row
                 style={{
                   padding: "10px 0px",
