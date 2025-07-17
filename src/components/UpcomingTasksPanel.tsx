@@ -213,10 +213,10 @@ export const UpcomingTasksPanel = () => {
                       <Settings className="menu-icon" />
                       Manage Tasks
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => navigate("/progress")}>
+                    {/* <DropdownMenuItem onClick={() => navigate("/progress")}>
                       <BarChart3 className="menu-icon" />
                       Progress
-                    </DropdownMenuItem>
+                    </DropdownMenuItem> */}
                     <DropdownMenuSeparator />
                     <DropdownMenuItem
                       onClick={handleLogout}

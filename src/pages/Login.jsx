@@ -14,8 +14,8 @@ import "./Login.css"; // <-- Create and import your custom CSS file
 export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(DEMO_CREDENTIALS.email);
+  const [password, setPassword] = useState(DEMO_CREDENTIALS.password);
   const [isLoading, setIsLoading] = useState(false);
 
   const { login } = useAuth();
@@ -36,7 +36,8 @@ export const Login = () => {
       } else {
         toast({
           title: "Login failed",
-          description: "Invalid credentials. Please try the demo credentials below.",
+          description:
+            "Invalid credentials. Please try the demo credentials below.",
           variant: "destructive",
         });
       }
@@ -75,32 +76,22 @@ export const Login = () => {
               {isSignUp ? "Create Account" : "Welcome Back"}
             </CardTitle>
             <p className="login-subtitle">
-              {isSignUp ? "Start your study journey today" : "Sign in to continue your study journey"}
+              {isSignUp
+                ? "Start your study journey today"
+                : "Sign in to continue your study journey"}
             </p>
           </CardHeader>
 
           <CardContent className="login-content">
-            <Alert className="flex">
-              <Info className="icon-small" />
-              <AlertDescription className="demo-text">
-                <strong>Demo Credentials:</strong><br />
-                Email: {DEMO_CREDENTIALS.email}<br />
-                Password: {DEMO_CREDENTIALS.password}
-                <Button
-                  variant="link"
-                  className="demo-button"
-                  onClick={handleDemoLogin}
-                >
-                  Use Demo
-                </Button>
-              </AlertDescription>
-            </Alert>
-
             <form onSubmit={handleSubmit} className="login-form">
               {isSignUp && (
                 <div className="form-group">
                   <Label htmlFor="name">Full Name</Label>
-                  <Input id="name" placeholder="Enter your full name" className="form-input" />
+                  <Input
+                    id="name"
+                    placeholder="Enter your full name"
+                    className="form-input"
+                  />
                 </div>
               )}
 
@@ -135,7 +126,11 @@ export const Login = () => {
                     className="toggle-password-btn"
                     onClick={() => setShowPassword(!showPassword)}
                   >
-                    {showPassword ? <EyeOff className="icon-small" /> : <Eye className="icon-small" />}
+                    {showPassword ? (
+                      <EyeOff className="icon-small" />
+                    ) : (
+                      <Eye className="icon-small" />
+                    )}
                   </Button>
                 </div>
               </div>
@@ -153,7 +148,11 @@ export const Login = () => {
               )}
 
               <Button type="submit" className="submit-btn" disabled={isLoading}>
-                {isLoading ? "Signing In..." : isSignUp ? "Create Account" : "Sign In"}
+                {isLoading
+                  ? "Signing In..."
+                  : isSignUp
+                  ? "Create Account"
+                  : "Sign In"}
               </Button>
             </form>
 
@@ -162,15 +161,17 @@ export const Login = () => {
               <span className="separator-text">OR</span>
             </div>
 
-            <Button variant="outline" className="google-btn">
-              Continue with Google
-            </Button>
-
             <div className="switch-text">
               <span>
-                {isSignUp ? "Already have an account?" : "Don't have an account?"}
+                {isSignUp
+                  ? "Already have an account?"
+                  : "Don't have an account?"}
               </span>
-              <Button variant="link" className="switch-link" onClick={() => setIsSignUp(!isSignUp)}>
+              <Button
+                variant="link"
+                className="switch-link"
+                onClick={() => setIsSignUp(!isSignUp)}
+              >
                 {isSignUp ? "Sign in" : "Sign up"}
               </Button>
             </div>

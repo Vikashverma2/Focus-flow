@@ -9,7 +9,7 @@
 
 .login-wrapper {
   width: 100%;
-  max-width: 400px;
+  max-width: 450px;
 }
 
 .login-back-link {
@@ -79,7 +79,6 @@
   padding: 1.5rem;
 }
 
-
 .icon-small {
   width: 16px;
   height: 16px;
@@ -88,7 +87,6 @@
 .demo-text {
   display: flex;
   flex-direction: column;
- 
 }
 
 .demo-button {
